@@ -91,10 +91,14 @@ public class Runner {
     final Argument<String> projectIdArg =
         stringArgument("-project-id", "-pi")
             .description(
-                "Can be the string or the number. Like 'tomas.bjerre85%2Fviolations-test' or '2732496'")
+                "Can be the string or the number. Like 'tomas.bjerre85/violations-test' or '2732496'")
             .build();
     final Argument<String> mergeRequestIidArg =
-        stringArgument("-mr-iid").description("Merge Request IID").required().build();
+        stringArgument("-mr-iid")
+            .description("Merge Request IID")
+            .description("Example: 1")
+            .required()
+            .build();
     final Argument<Boolean> ignoreCertificateErrorsArg =
         booleanArgument("-ignore-certificate-errors").defaultValue(true).build();
     final Argument<Boolean> apiTokenPrivateArg =

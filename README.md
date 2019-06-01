@@ -6,15 +6,17 @@
 
 Report static code analysis to GitLab. It uses the [Violations Lib](https://github.com/tomasbjerre/violations-lib).
 
+![GitLab Comment](/gitlab-comment.png)
+
 The runnable can be found in [NPM](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line).
 
 Run it with:
 
 ```shell
 npx violation-comments-to-gitlab-command-line \
- -at APITOKENHERE \
- -pi bjerre85%2Fviolations-test \
- -mr-iid 2732496 \
+ -at K2RS-JdV6Rh3sQJmMQgV \
+ -pi tomas.bjerre85/violations-test \
+ -mr-iid 1 \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
  -v "JSHINT" "." ".*jshint/report\.xml$" "JSHint"
 ```
@@ -133,12 +135,11 @@ ccwasfc <boolean>                                       Default: false
                                                         Default: false
 -max-number-of-comments, -mnoc <integer>                <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 2,147,483,647
--mr-iid <string>                                        Merge Request IID [Required]
+-mr-iid <string>                                        Example: 1 [Required]
                                                         <string>: any string
 -project-id, -pi <string>                               Can be the string or 
                                                         the number. Like 'tomas.
-                                                        bjerre85%2Fviolations-test' or 
-                                                        '2732496'
+                                                        bjerre85/violations-test' or '2732496'
                                                         <string>: any string
                                                         Default: 
 -proxy-password <string>                                <string>: any string
