@@ -12,11 +12,17 @@ import static se.softhouse.jargo.Arguments.optionArgument;
 import static se.softhouse.jargo.Arguments.stringArgument;
 import static se.softhouse.jargo.CommandLineParser.withArguments;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
+
 import org.gitlab4j.api.Constants.TokenType;
+
+import se.bjurr.violations.comments.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
@@ -77,7 +83,7 @@ public class Runner {
         booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
     final Argument<Boolean> createCommentWithAllSingleFileCommentsArg =
         booleanArgument("-create-comment-with-all-single-file-comments", "-ccwasfc")
-            .defaultValue(true)
+            .defaultValue(false)
             .build();
     final Argument<Boolean> createSingleFileCommentsArg =
         booleanArgument("-create-single-file-comments", "-csfc").defaultValue(true).build();
@@ -217,6 +223,20 @@ public class Runner {
           .setProxyUser(proxyUser) //
           .setProxyPassword(proxyPassword) //
           .setMaxNumberOfViolations(maxNumberOfComments) //
+          .setViolationsLogger(
+                  new ViolationsLogger() {
+                    @Override
+                    public void log(final Level level, final String string) {
+                      System.out.println(level + " " + string);
+                    }
+
+                    @Override
+                    public void log(final Level level, final String string, final Throwable t) {
+                      final StringWriter sw = new StringWriter();
+                      t.printStackTrace(new PrintWriter(sw));
+                      System.out.println(level + " " + string + "\n" + sw.toString());
+                    }
+                  }) //
           .toPullRequest();
     } catch (final Exception e) {
       e.printStackTrace();
