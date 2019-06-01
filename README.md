@@ -19,6 +19,24 @@ npx violation-comments-to-gitlab-command-line \
  -v "JSHINT" "." ".*jshint/report\.xml$" "JSHint"
 ```
 
+**You must perform the merge before build**. If you don't perform the merge, the reported violations will refer to other lines then those in the pull request. The merge can be done with a shell script like this.
+
+```
+echo ---
+echo --- Merging from $FROM in $FROMREPO to $TO in $TOREPO
+echo ---
+git clone $TOREPO
+cd *
+git reset --hard $TO
+git status
+git remote add from $FROMREPO
+git fetch from
+git merge $FROM
+git --no-pager log --max-count=10 --graph --abbrev-commit
+
+Your build command here!
+```
+
 Example of supported reports are available [here](https://github.com/tomasbjerre/violations-lib/tree/master/src/test/resources).
 
 A number of **parsers** have been implemented. Some **parsers** can parse output from several **reporters**.
