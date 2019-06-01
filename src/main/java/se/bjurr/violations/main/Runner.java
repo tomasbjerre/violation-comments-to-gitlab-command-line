@@ -104,7 +104,10 @@ public class Runner {
     final Argument<Boolean> shouldSetWipArg =
         booleanArgument("-should-set-wip").defaultValue(false).build();
     final Argument<String> commentTemplateArg =
-        stringArgument("-comment-template").defaultValue("").build();
+        stringArgument("-comment-template")
+            .defaultValue("")
+            .description("https://github.com/tomasbjerre/violation-comments-lib")
+            .build();
     final Argument<String> proxyServerArg =
         stringArgument("-proxy-server").defaultValue("").build();
     final Argument<String> proxyUserArg = stringArgument("-proxy-user").defaultValue("").build();

@@ -115,7 +115,9 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         Default: true
 -comment-only-changed-content, -cocc <boolean>          <boolean>: true or false
                                                         Default: true
--comment-template <string>                              <string>: any string
+-comment-template <string>                              https://github.
+                                                        com/tomasbjerre/violation-comments-lib
+                                                        <string>: any string
                                                         Default: 
 -create-comment-with-all-single-file-comments, -        <boolean>: true or false
 ccwasfc <boolean>                                       Default: false
