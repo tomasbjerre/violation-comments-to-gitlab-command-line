@@ -1,0 +1,51 @@
+
+ # Violation comments to gitlab command line changelog
+
+Changelog of Violation comments to gitlab command line.
+
+## 1.7
+### No issue
+
+**Artity 4 on -v**
+
+
+[9aba03d4c5d0944](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/9aba03d4c5d0944) Tomas Bjerre *2019-06-15 19:10:54*
+
+
+## 1.6
+### No issue
+
+**doc**
+
+
+[2553db320a0bb05](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/2553db320a0bb05) Tomas Bjerre *2019-06-01 18:46:58*
+
+
+## 1.5
+### No issue
+
+**doc**
+
+
+[38577a430de8dd6](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/38577a430de8dd6) Tomas Bjerre *2019-06-01 17:51:35*
+
+
+## 1.4
+### No issue
+
+**doc**
+
+
+[56167627437a296](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/56167627437a296) Tomas Bjerre *2019-06-01 15:36:07*
+
+
+## 1.3
+### No issue
+
+**ccwasfc defaults to false**
+
+
+[208d236d84dd783](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/208d236d84dd783) Tomas Bjerre *2019-06-01 15:22:00*
+
+
+ 
