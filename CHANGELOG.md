@@ -3,6 +3,20 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.8
+### No issue
+
+**commentOnlyChangedFiles**
+
+
+[3a3764ce5409941](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/3a3764ce5409941) Tomas Bjerre *2019-06-16 17:29:16*
+
+**changelog**
+
+
+[b32c133fb909ea3](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/b32c133fb909ea3) Tomas Bjerre *2019-06-15 19:15:57*
+
+
 ## 1.7
 ### No issue
 
