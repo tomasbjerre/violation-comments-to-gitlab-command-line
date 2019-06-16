@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+
 import org.gitlab4j.api.Constants.TokenType;
+
 import se.bjurr.violations.comments.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
@@ -33,6 +35,7 @@ public class Runner {
 
   private List<List<String>> violations;
   private boolean commentOnlyChangedContent;
+  private boolean commentOnlyChangedFiles;
   private boolean createCommentWithAllSingleFileComments;
   private boolean createSingleFileComments;
   private String gitLabUrl;
@@ -78,7 +81,13 @@ public class Runner {
             .build();
 
     final Argument<Boolean> commentOnlyChangedContentArg =
-        booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
+            booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
+    final Argument<Boolean> shouldCommentOnlyChangedFilesArg =
+            booleanArgument("-comment-only-changed-files", "-cocf")
+                .defaultValue(true)
+                .description(
+                    "True if only changed files should be commented. False if all findings should be commented.")
+                .build();
     final Argument<Boolean> createCommentWithAllSingleFileCommentsArg =
         booleanArgument("-create-comment-with-all-single-file-comments", "-ccwasfc")
             .defaultValue(false)
@@ -148,6 +157,7 @@ public class Runner {
       this.violations = parsed.get(violationsArg);
       this.minSeverity = parsed.get(minSeverityArg);
       this.commentOnlyChangedContent = parsed.get(commentOnlyChangedContentArg);
+      this.commentOnlyChangedFiles = parsed.get(shouldCommentOnlyChangedFilesArg);
       this.createCommentWithAllSingleFileComments =
           parsed.get(createCommentWithAllSingleFileCommentsArg);
       this.createSingleFileComments = parsed.get(createSingleFileCommentsArg);
@@ -217,6 +227,7 @@ public class Runner {
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
           .setCommentOnlyChangedContent(commentOnlyChangedContent) //
+          .withShouldCommentOnlyChangedFiles(commentOnlyChangedFiles)//
           .setCreateCommentWithAllSingleFileComments(createCommentWithAllSingleFileComments) //
           .setCreateSingleFileComments(createSingleFileComments) //
           .setIgnoreCertificateErrors(ignoreCertificateErrors) //
