@@ -19,9 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-
 import org.gitlab4j.api.Constants.TokenType;
-
 import se.bjurr.violations.comments.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
@@ -81,13 +79,13 @@ public class Runner {
             .build();
 
     final Argument<Boolean> commentOnlyChangedContentArg =
-            booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
+        booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
     final Argument<Boolean> shouldCommentOnlyChangedFilesArg =
-            booleanArgument("-comment-only-changed-files", "-cocf")
-                .defaultValue(true)
-                .description(
-                    "True if only changed files should be commented. False if all findings should be commented.")
-                .build();
+        booleanArgument("-comment-only-changed-files", "-cocf")
+            .defaultValue(true)
+            .description(
+                "True if only changed files should be commented. False if all findings should be commented.")
+            .build();
     final Argument<Boolean> createCommentWithAllSingleFileCommentsArg =
         booleanArgument("-create-comment-with-all-single-file-comments", "-ccwasfc")
             .defaultValue(false)
@@ -227,7 +225,7 @@ public class Runner {
           .setApiToken(apiToken) //
           .setTokenType(tokenType) //
           .setCommentOnlyChangedContent(commentOnlyChangedContent) //
-          .withShouldCommentOnlyChangedFiles(commentOnlyChangedFiles)//
+          .withShouldCommentOnlyChangedFiles(commentOnlyChangedFiles) //
           .setCreateCommentWithAllSingleFileComments(createCommentWithAllSingleFileComments) //
           .setCreateSingleFileComments(createSingleFileComments) //
           .setIgnoreCertificateErrors(ignoreCertificateErrors) //
