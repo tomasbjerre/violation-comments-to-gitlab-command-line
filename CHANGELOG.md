@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.9
+### No issue
+
+**Changing name of JSHINT parser to JSLINT**
+
+
+[94c4d42df18c95a](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/94c4d42df18c95a) Tomas Bjerre *2019-08-03 11:47:47*
+
+
 ## 1.8
 ### No issue
 
