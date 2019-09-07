@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.10
+### No issue
+
+**CodeClimate**
+
+
+[12735498e7ec7b8](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/12735498e7ec7b8) Tomas Bjerre *2019-09-07 12:30:23*
+
+
 ## 1.9
 ### No issue
 
