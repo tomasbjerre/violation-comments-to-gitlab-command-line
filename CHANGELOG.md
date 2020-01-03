@@ -3,6 +3,28 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.11
+### GitHub #80   
+
+**Add support for sonar issue report formats >= v7.5 tomasbjerre/violations-lib**
+
+
+[eb7b6f8213dd1db](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/eb7b6f8213dd1db) Tomas Bjerre *2020-01-03 07:31:39*
+
+
+### No issue
+
+**doc**
+
+
+[006eeb6c4bbef27](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/006eeb6c4bbef27) Tomas Bjerre *2019-10-09 17:01:36*
+
+**Create FUNDING.yml**
+
+
+[2d224157a6c3b16](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/2d224157a6c3b16) Tomas Bjerre *2019-09-28 07:00:47*
+
+
 ## 1.10
 ### No issue
 
