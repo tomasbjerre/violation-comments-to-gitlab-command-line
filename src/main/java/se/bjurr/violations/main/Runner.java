@@ -135,6 +135,7 @@ public class Runner {
                   minSeverityArg, //
                   showDebugInfo, //
                   commentOnlyChangedContentArg, //
+                  shouldCommentOnlyChangedFilesArg, //
                   createCommentWithAllSingleFileCommentsArg, //
                   createSingleFileCommentsArg, //
                   gitLabUrlArg, //
