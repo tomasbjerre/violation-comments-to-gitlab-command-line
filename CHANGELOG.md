@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.13
+### No issue
+
+**XUnit and parsing shouldCommentOnlyChangedFilesArg,**
+
+
+[9eabf9d98aca89e](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/9eabf9d98aca89e) Tomas Bjerre *2020-03-13 15:14:38*
+
+
 ## 1.12
 ### GitHub #82   
 
