@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.14
+### No issue
+
+**Stepping dependencies**
+
+
+[68835669561e136](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/68835669561e136) Tomas Bjerre *2020-03-15 16:00:28*
+
+
 ## 1.13
 ### No issue
 
