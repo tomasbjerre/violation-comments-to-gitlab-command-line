@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.15
+### GitHub [#4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/issues/4) Changing MR to WIP creates unexpected results  
+
+**Avoid multiple WIP in title**
+
+
+[818b0b2409c8a12](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/818b0b2409c8a12) Tomas Bjerre *2020-03-16 17:18:48*
+
+
 ## 1.14
 ### No issue
 
