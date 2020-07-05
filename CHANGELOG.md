@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.16
+### No issue
+
+**New: custom logging in violations-lib**
+
+
+[fbd6db468d61cb2](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/fbd6db468d61cb2) Tomas Bjerre *2020-07-05 12:35:46*
+
+
 ## 1.15
 ### GitHub [#4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/issues/4) Changing MR to WIP creates unexpected results  
 
