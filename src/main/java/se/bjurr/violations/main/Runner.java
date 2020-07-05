@@ -231,6 +231,7 @@ public class Runner {
 
       final Set<Violation> parsedViolations =
           violationsApi() //
+              .withViolationsLogger(violationsLogger) //
               .findAll(Parser.valueOf(configuredViolation.get(0))) //
               .inFolder(configuredViolation.get(1)) //
               .withPattern(configuredViolation.get(2)) //
