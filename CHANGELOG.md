@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.17
+### No issue
+
+**New: custom logging in violations-lib**
+
+
+[d61770f526d3b23](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d61770f526d3b23) Tomas Bjerre *2020-07-05 12:59:55*
+
+
 ## 1.16
 ### No issue
 
