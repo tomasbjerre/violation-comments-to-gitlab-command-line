@@ -14,13 +14,15 @@ import static se.softhouse.jargo.CommandLineParser.withArguments;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.gitlab4j.api.Constants.TokenType;
-import se.bjurr.violations.comments.lib.ViolationsLogger;
+import se.bjurr.violations.lib.FilteringViolationsLogger;
+import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
@@ -50,6 +52,7 @@ public class Runner {
   private String proxyUser;
   private String proxyPassword;
   private Integer maxNumberOfComments;
+  private boolean showDebugInfo;
 
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
@@ -173,8 +176,8 @@ public class Runner {
       this.proxyUser = parsed.get(proxyUserArg);
       this.proxyPassword = parsed.get(proxyPasswordArg);
       this.maxNumberOfComments = parsed.get(maxNumberOfCommentsArg);
-
-      if (parsed.wasGiven(showDebugInfo)) {
+      this.showDebugInfo = parsed.wasGiven(showDebugInfo);
+      if (this.showDebugInfo) {
         System.out.println(
             "Given parameters:\n"
                 + Arrays.asList(args)
@@ -190,68 +193,79 @@ public class Runner {
       System.exit(1);
     }
 
-    if (mergeRequestIid == null || mergeRequestIid.isEmpty()) {
+    ViolationsLogger violationsLogger =
+        new ViolationsLogger() {
+          @Override
+          public void log(final Level level, final String string) {
+            System.out.println(level + " " + string);
+          }
+
+          @Override
+          public void log(final Level level, final String string, final Throwable t) {
+            final StringWriter sw = new StringWriter();
+            t.printStackTrace(new PrintWriter(sw));
+            System.out.println(level + " " + string + "\n" + sw.toString());
+          }
+        };
+    if (!this.showDebugInfo) {
+      violationsLogger = FilteringViolationsLogger.filterLevel(violationsLogger);
+    }
+
+    if (this.mergeRequestIid == null || this.mergeRequestIid.isEmpty()) {
       System.out.println(
           "No merge request iid defined, will not send violation comments to GitLab.");
       return;
     }
 
     System.out.println(
-        "Will comment project " + projectId + " and MR " + mergeRequestIid + " on " + gitLabUrl);
+        "Will comment project "
+            + this.projectId
+            + " and MR "
+            + this.mergeRequestIid
+            + " on "
+            + this.gitLabUrl);
 
-    List<Violation> allParsedViolations = new ArrayList<>();
-    for (final List<String> configuredViolation : violations) {
+    Set<Violation> allParsedViolations = new TreeSet<>();
+    for (final List<String> configuredViolation : this.violations) {
       final String reporter = configuredViolation.size() >= 4 ? configuredViolation.get(3) : null;
 
-      final List<Violation> parsedViolations =
+      final Set<Violation> parsedViolations =
           violationsApi() //
               .findAll(Parser.valueOf(configuredViolation.get(0))) //
               .inFolder(configuredViolation.get(1)) //
               .withPattern(configuredViolation.get(2)) //
               .withReporter(reporter) //
               .violations();
-      if (minSeverity != null) {
-        allParsedViolations = Filtering.withAtLEastSeverity(allParsedViolations, minSeverity);
+      if (this.minSeverity != null) {
+        allParsedViolations = Filtering.withAtLEastSeverity(allParsedViolations, this.minSeverity);
       }
       allParsedViolations.addAll(parsedViolations);
     }
 
     try {
-      final TokenType tokenType = apiTokenPrivate ? TokenType.PRIVATE : TokenType.ACCESS;
-      final Integer mergeRequestIidInteger = Integer.parseInt(mergeRequestIid);
-      violationCommentsToGitLabApi() //
-          .setHostUrl(gitLabUrl) //
-          .setProjectId(projectId) //
-          .setMergeRequestIid(mergeRequestIidInteger) //
-          .setApiToken(apiToken) //
-          .setTokenType(tokenType) //
-          .setCommentOnlyChangedContent(commentOnlyChangedContent) //
-          .withShouldCommentOnlyChangedFiles(commentOnlyChangedFiles) //
-          .setCreateCommentWithAllSingleFileComments(createCommentWithAllSingleFileComments) //
-          .setCreateSingleFileComments(createSingleFileComments) //
-          .setIgnoreCertificateErrors(ignoreCertificateErrors) //
+      final TokenType tokenType = this.apiTokenPrivate ? TokenType.PRIVATE : TokenType.ACCESS;
+      final Integer mergeRequestIidInteger = Integer.parseInt(this.mergeRequestIid);
+      violationCommentsToGitLabApi()
+          .setHostUrl(this.gitLabUrl)
+          .setProjectId(this.projectId)
+          .setMergeRequestIid(mergeRequestIidInteger)
+          .setApiToken(this.apiToken)
+          .setTokenType(tokenType)
+          .setCommentOnlyChangedContent(this.commentOnlyChangedContent) //
+          .withShouldCommentOnlyChangedFiles(this.commentOnlyChangedFiles) //
+          .setCreateCommentWithAllSingleFileComments(
+              this.createCommentWithAllSingleFileComments) //
+          .setCreateSingleFileComments(this.createSingleFileComments) //
+          .setIgnoreCertificateErrors(this.ignoreCertificateErrors) //
           .setViolations(allParsedViolations) //
-          .setShouldKeepOldComments(keepOldComments) //
-          .setShouldSetWIP(shouldSetWip) //
-          .setCommentTemplate(commentTemplate) //
-          .setProxyServer(proxyServer) //
-          .setProxyUser(proxyUser) //
-          .setProxyPassword(proxyPassword) //
-          .setMaxNumberOfViolations(maxNumberOfComments) //
-          .setViolationsLogger(
-              new ViolationsLogger() {
-                @Override
-                public void log(final Level level, final String string) {
-                  System.out.println(level + " " + string);
-                }
-
-                @Override
-                public void log(final Level level, final String string, final Throwable t) {
-                  final StringWriter sw = new StringWriter();
-                  t.printStackTrace(new PrintWriter(sw));
-                  System.out.println(level + " " + string + "\n" + sw.toString());
-                }
-              }) //
+          .setShouldKeepOldComments(this.keepOldComments) //
+          .setShouldSetWIP(this.shouldSetWip) //
+          .setCommentTemplate(this.commentTemplate) //
+          .setProxyServer(this.proxyServer) //
+          .setProxyUser(this.proxyUser) //
+          .setProxyPassword(this.proxyPassword) //
+          .setMaxNumberOfViolations(this.maxNumberOfComments) //
+          .setViolationsLogger(violationsLogger) //
           .toPullRequest();
     } catch (final Exception e) {
       e.printStackTrace();
@@ -261,41 +275,41 @@ public class Runner {
   @Override
   public String toString() {
     return "Runner [violations="
-        + violations
+        + this.violations
         + ", commentOnlyChangedContent="
-        + commentOnlyChangedContent
+        + this.commentOnlyChangedContent
         + ", createCommentWithAllSingleFileComments="
-        + createCommentWithAllSingleFileComments
+        + this.createCommentWithAllSingleFileComments
         + ", createSingleFileComments="
-        + createSingleFileComments
+        + this.createSingleFileComments
         + ", gitLabUrl="
-        + gitLabUrl
+        + this.gitLabUrl
         + ", apiToken="
-        + apiToken
+        + this.apiToken
         + ", projectId="
-        + projectId
+        + this.projectId
         + ", mergeRequestIid="
-        + mergeRequestIid
+        + this.mergeRequestIid
         + ", ignoreCertificateErrors="
-        + ignoreCertificateErrors
+        + this.ignoreCertificateErrors
         + ", apiTokenPrivate="
-        + apiTokenPrivate
+        + this.apiTokenPrivate
         + ", minSeverity="
-        + minSeverity
+        + this.minSeverity
         + ", keepOldComments="
-        + keepOldComments
+        + this.keepOldComments
         + ", shouldSetWip="
-        + shouldSetWip
+        + this.shouldSetWip
         + ", commentTemplate="
-        + commentTemplate
+        + this.commentTemplate
         + ", proxyServer="
-        + proxyServer
+        + this.proxyServer
         + ", proxyUser="
-        + proxyUser
+        + this.proxyUser
         + ", proxyPassword="
-        + proxyPassword
+        + this.proxyPassword
         + ", maxNumberOfComments="
-        + maxNumberOfComments
+        + this.maxNumberOfComments
         + "]";
   }
 }
