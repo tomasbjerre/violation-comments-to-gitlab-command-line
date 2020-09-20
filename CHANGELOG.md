@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.18
+### No issue
+
+**violations-lib 1.128**
+
+
+[3e9713c8e928f04](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/3e9713c8e928f04) Tomas Bjerre *2020-09-20 13:26:20*
+
+
 ## 1.17
 ### No issue
 
