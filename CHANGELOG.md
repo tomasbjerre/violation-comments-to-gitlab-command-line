@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.19
+### No issue
+
+**Allow Checkstyle reports with no line**
+
+
+[79a6d1349fd5db4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/79a6d1349fd5db4) Tomas Bjerre *2020-09-23 17:00:58*
+
+
 ## 1.18
 ### No issue
 
