@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.20
+### No issue
+
+**Find Security Bugs messages**
+
+
+[b1904c40a622035](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/b1904c40a622035) Tomas Bjerre *2020-09-27 17:41:55*
+
+
 ## 1.19
 ### No issue
 
