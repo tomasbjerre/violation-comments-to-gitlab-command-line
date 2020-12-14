@@ -3,6 +3,15 @@
 
 Changelog of Violation comments to gitlab command line.
 
+## 1.21
+### GitHub #117   
+
+**Correctings in patchparsing tomasbjerre/violations-lib**
+
+
+[6944aff058efb75](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/6944aff058efb75) Tomas Bjerre *2020-12-14 15:22:29*
+
+
 ## 1.20
 ### No issue
 
