@@ -1,7 +1,16 @@
 
- # Violation comments to gitlab command line changelog
+# violation-comments-to-gitlab-command-line changelog
 
-Changelog of Violation comments to gitlab command line.
+Changelog of violation-comments-to-gitlab-command-line.
+
+## 1.23.0
+### No issue
+
+**new build script**
+
+
+[67bcd679375b1f9](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/67bcd679375b1f9) Tomas Bjerre *2021-04-05 11:27:19*
+
 
 ## 1.21
 ### GitHub #117   
@@ -192,4 +201,3 @@ Changelog of Violation comments to gitlab command line.
 [208d236d84dd783](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/208d236d84dd783) Tomas Bjerre *2019-06-01 15:22:00*
 
 
- 
