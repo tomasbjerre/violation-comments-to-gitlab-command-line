@@ -57,8 +57,7 @@ public class Runner {
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
     final String parsersString =
-        Arrays.asList(Parser.values())
-            .stream()
+        Arrays.asList(Parser.values()).stream()
             .map((it) -> it.toString())
             .collect(Collectors.joining(", "));
     final Argument<List<List<String>>> violationsArg =
@@ -180,8 +179,7 @@ public class Runner {
       if (this.showDebugInfo) {
         System.out.println(
             "Given parameters:\n"
-                + Arrays.asList(args)
-                    .stream()
+                + Arrays.asList(args).stream()
                     .map((it) -> it.toString())
                     .collect(Collectors.joining(", "))
                 + "\n\nParsed parameters:\n"
