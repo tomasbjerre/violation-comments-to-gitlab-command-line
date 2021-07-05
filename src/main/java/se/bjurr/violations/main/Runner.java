@@ -35,6 +35,7 @@ public class Runner {
 
   private List<List<String>> violations;
   private boolean commentOnlyChangedContent;
+  private Integer commentOnlyChangedContentContext;
   private boolean commentOnlyChangedFiles;
   private boolean createCommentWithAllSingleFileComments;
   private boolean createSingleFileComments;
@@ -82,6 +83,10 @@ public class Runner {
 
     final Argument<Boolean> commentOnlyChangedContentArg =
         booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
+
+    final Argument<Integer> commentOnlyChangedContentContextArg =
+        IntegerArgument("-comment-only-changed-content-context", "-coccc").defaultValue(0).build();
+
     final Argument<Boolean> shouldCommentOnlyChangedFilesArg =
         booleanArgument("-comment-only-changed-files", "-cocf")
             .defaultValue(true)
@@ -137,6 +142,7 @@ public class Runner {
                   minSeverityArg, //
                   showDebugInfo, //
                   commentOnlyChangedContentArg, //
+                  commentOnlyChangedContentContextArg, //
                   shouldCommentOnlyChangedFilesArg, //
                   createCommentWithAllSingleFileCommentsArg, //
                   createSingleFileCommentsArg, //
@@ -158,6 +164,7 @@ public class Runner {
       this.violations = parsed.get(violationsArg);
       this.minSeverity = parsed.get(minSeverityArg);
       this.commentOnlyChangedContent = parsed.get(commentOnlyChangedContentArg);
+      this.commentOnlyChangedContentContext = parsed.get(commentOnlyChangedContentArg);
       this.commentOnlyChangedFiles = parsed.get(shouldCommentOnlyChangedFilesArg);
       this.createCommentWithAllSingleFileComments =
           parsed.get(createCommentWithAllSingleFileCommentsArg);
@@ -251,6 +258,7 @@ public class Runner {
           .setApiToken(this.apiToken)
           .setTokenType(tokenType)
           .setCommentOnlyChangedContent(this.commentOnlyChangedContent) //
+          .setCommentOnlyChangedContentContext(this.commentOnlyChangedContentContext) //
           .withShouldCommentOnlyChangedFiles(this.commentOnlyChangedFiles) //
           .setCreateCommentWithAllSingleFileComments(
               this.createCommentWithAllSingleFileComments) //
@@ -277,6 +285,8 @@ public class Runner {
         + this.violations
         + ", commentOnlyChangedContent="
         + this.commentOnlyChangedContent
+        + ", commentOnlyChangedContentContext="
+        + this.commentOnlyChangedContentContext
         + ", createCommentWithAllSingleFileComments="
         + this.createCommentWithAllSingleFileComments
         + ", createSingleFileComments="
