@@ -2,6 +2,25 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## [1.26.0](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/releases/tag/1.26.0) (2021-07-06)
+
+
+
+
+
+
+
+### Other changes
+
+**Giving access to the commentOnlyChangedContentContext parameter**
+
+
+[2b893](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/2b8935480725cd5) Aurelian Teglas *2021-07-05 18:25:56*
+**Giving access to the commentOnlyChangedContentContext parameter**
+
+
+[64087](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/64087a84157a504) Aurelian Teglas *2021-07-05 18:21:42*
+
 ## [1.24.0](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/releases/tag/1.24.0) (2021-06-16)
 
 
