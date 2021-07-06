@@ -125,6 +125,8 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         Default: true
 -comment-only-changed-content, -cocc <boolean>          <boolean>: true or false
                                                         Default: true
+-comment-only-changed-content-context, -coccc <integer> <integer>: 0 to 2,147,483,647
+                                                        Default: 0
 -comment-only-changed-files, -cocf <boolean>            True if only changed 
                                                         files should be commented. 
                                                         False if all findings should 
