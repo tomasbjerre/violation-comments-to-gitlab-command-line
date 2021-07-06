@@ -85,7 +85,7 @@ public class Runner {
         booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
 
     final Argument<Integer> commentOnlyChangedContentContextArg =
-        IntegerArgument("-comment-only-changed-content-context", "-coccc").defaultValue(0).build();
+        integerArgument("-comment-only-changed-content-context", "-coccc").defaultValue(0).build();
 
     final Argument<Boolean> shouldCommentOnlyChangedFilesArg =
         booleanArgument("-comment-only-changed-files", "-cocf")
@@ -164,7 +164,7 @@ public class Runner {
       this.violations = parsed.get(violationsArg);
       this.minSeverity = parsed.get(minSeverityArg);
       this.commentOnlyChangedContent = parsed.get(commentOnlyChangedContentArg);
-      this.commentOnlyChangedContentContext = parsed.get(commentOnlyChangedContentArg);
+      this.commentOnlyChangedContentContext = parsed.get(commentOnlyChangedContentContextArg);
       this.commentOnlyChangedFiles = parsed.get(shouldCommentOnlyChangedFilesArg);
       this.createCommentWithAllSingleFileComments =
           parsed.get(createCommentWithAllSingleFileCommentsArg);
