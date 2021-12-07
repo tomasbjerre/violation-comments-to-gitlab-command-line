@@ -2,6 +2,18 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## [1.29.0](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/releases/tag/1.29.0) (2021-12-07)
+
+
+
+### Features
+
+-  using npm-java-runner ([d0539](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d0539979005e3c8))  
+
+
+
+
+
 ## [1.26.0](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/releases/tag/1.26.0) (2021-07-06)
 
 
