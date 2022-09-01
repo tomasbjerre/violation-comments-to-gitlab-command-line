@@ -2,37 +2,25 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.31.0 (2022-09-01)
+
+### Features
+
+-  stepping violations-lib ([d1033](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d1033f44b0f0ace) Tomas Bjerre)  
+
 ## 1.30.0 (2022-03-27)
-
-
 
 ### Features
 
 -  stepping lib versions ([7c637](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/7c63794a377f3e3) Tomas Bjerre)  
 
-
-
-
-
 ## 1.29.0 (2021-12-07)
-
-
 
 ### Features
 
 -  using npm-java-runner ([d0539](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d0539979005e3c8) Tomas Bjerre)  
 
-
-
-
-
 ## 1.26.0 (2021-07-06)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -49,14 +37,9 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.24.0 (2021-06-16)
 
-
-
 ### Features
 
 -  MSBuild parser ([ba3e6](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/ba3e68ca5ddc9c3) Tomas Bjerre)  
-
-
-
 
 ### Other changes
 
@@ -68,12 +51,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.23.0 (2021-04-05)
 
-
-
-
-
-
-
 ### Other changes
 
 **new build script**
@@ -83,12 +60,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.21 (2020-12-14)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -100,12 +71,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.20 (2020-09-27)
 
-
-
-
-
-
-
 ### Other changes
 
 **Find Security Bugs messages**
@@ -115,12 +80,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.19 (2020-09-23)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -132,12 +91,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.18 (2020-09-20)
 
-
-
-
-
-
-
 ### Other changes
 
 **violations-lib 1.128**
@@ -148,29 +101,9 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.17 (2020-07-05)
 
-
-
-
-
-
-
-
 ## 1.16 (2020-07-05)
 
-
-
-
-
-
-
-
 ## 1.15 (2020-03-16)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -182,12 +115,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.14 (2020-03-15)
 
-
-
-
-
-
-
 ### Other changes
 
 **Stepping dependencies**
@@ -197,12 +124,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.13 (2020-03-13)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -214,12 +135,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.12 (2020-02-03)
 
-
-
-
-
-
-
 ### Other changes
 
 **CPPCheckParser with auto closed <error/> tags tomasbjerre/violations-lib#82**
@@ -229,12 +144,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.11 (2020-01-03)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -256,12 +165,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.10 (2019-09-07)
 
-
-
-
-
-
-
 ### Other changes
 
 **CodeClimate**
@@ -272,12 +175,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.9 (2019-08-03)
 
-
-
-
-
-
-
 ### Other changes
 
 **Changing name of JSHINT parser to JSLINT**
@@ -287,12 +184,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.8 (2019-06-16)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -309,12 +200,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.7 (2019-06-15)
 
-
-
-
-
-
-
 ### Other changes
 
 **Artity 4 on -v**
@@ -324,12 +209,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.6 (2019-06-01)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -341,12 +220,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.5 (2019-06-01)
 
-
-
-
-
-
-
 ### Other changes
 
 **doc**
@@ -356,12 +229,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.4 (2019-06-01)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -373,12 +240,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.3 (2019-06-01)
 
-
-
-
-
-
-
 ### Other changes
 
 **ccwasfc defaults to false**
@@ -388,12 +249,6 @@ Changelog of violation-comments-to-gitlab-command-line.
 
 
 ## 1.0 (2019-06-01)
-
-
-
-
-
-
 
 ### Other changes
 
