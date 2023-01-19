@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.32.0 (2023-01-19)
+
+### Features
+
+-  semgrep parser ([59b0d](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/59b0d6f44251da6) Tomas Bjerre)  
+
 ## 1.31.0 (2022-09-01)
 
 ### Features
