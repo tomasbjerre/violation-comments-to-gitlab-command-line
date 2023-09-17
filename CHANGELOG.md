@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.32.1 (2023-09-17)
+
+### Bug Fixes
+
+-  allow MSBuild in Program Files (x86) and support NU1701 ([f28b1](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/f28b11659dbbd3d) Tomas Bjerre)  
+
 ## 1.32.0 (2023-01-19)
 
 ### Features
