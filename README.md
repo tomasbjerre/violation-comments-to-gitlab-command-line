@@ -20,6 +20,8 @@ npx violation-comments-to-gitlab-command-line \
  -v "JSHINT" "." ".*jshint/report\.xml$" "JSHint"
 ```
 
+An alternative to this tools is transforming the reports to `CodeClimate` use that to report to GitLab, see [README in violations-command-line](https://github.com/tomasbjerre/violations-command-line).
+
 **You must perform the merge before build**. If you don't perform the merge, the reported violations will refer to other lines then those in the pull request. The merge can be done with a shell script like this.
 
 ```
