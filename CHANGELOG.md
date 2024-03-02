@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.32.2 (2024-03-02)
+
+### Bug Fixes
+
+-  stepping client to gitlab4j-api:5.5.0 ([d7fa5](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d7fa550ca23c058) Tomas Bjerre)  [#12](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/issues/12)  
+
 ## 1.32.1 (2023-09-17)
 
 ### Bug Fixes
