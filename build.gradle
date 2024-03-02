@@ -29,7 +29,7 @@ apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
 dependencies {
  implementation 'se.bjurr.violations:violation-comments-to-gitlab-lib:1.+'
- implementation 'se.bjurr.violations:violations-lib:1.156.6'
+ implementation 'se.bjurr.violations:violations-lib:1.156.7'
  implementation 'se.softhouse:jargo:0.4.14'
  implementation 'org.slf4j:slf4j-simple:2.0.6'
 }

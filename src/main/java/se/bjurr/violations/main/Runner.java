@@ -250,7 +250,7 @@ public class Runner {
 
     try {
       final TokenType tokenType = this.apiTokenPrivate ? TokenType.PRIVATE : TokenType.ACCESS;
-      final Integer mergeRequestIidInteger = Integer.parseInt(this.mergeRequestIid);
+      final Long mergeRequestIidInteger = Long.parseLong(this.mergeRequestIid);
       violationCommentsToGitLabApi()
           .setHostUrl(this.gitLabUrl)
           .setProjectId(this.projectId)

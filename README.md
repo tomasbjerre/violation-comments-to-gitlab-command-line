@@ -212,3 +212,5 @@ ccwasfc <boolean>                                       Default: false
 ```
 
 Checkout the [Violations Lib](https://github.com/tomasbjerre/violations-lib) for more documentation.
+
+The `-comment-template` parameter can be used to fix encoding problems, or just adjust what is being commented. [See README in violation-comments-lib](https://github.com/tomasbjerre/violation-comments-lib).
