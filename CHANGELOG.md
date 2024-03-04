@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.33.0 (2024-03-04)
+
+### Features
+
+-  changing logging when comment fails ([2adc6](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/2adc6a3ab372383) Tomas Bjerre)  [#12](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/issues/12)  
+
 ## 1.32.2 (2024-03-02)
 
 ### Bug Fixes
