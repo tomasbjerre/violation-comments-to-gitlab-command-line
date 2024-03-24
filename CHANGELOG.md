@@ -2,6 +2,12 @@
 
 Changelog of violation-comments-to-gitlab-command-line.
 
+## 1.34.0 (2024-03-24)
+
+### Features
+
+-  coverity parser ([136d4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/136d4dbc9ee66b9) Tomas Bjerre)  
+
 ## 1.33.0 (2024-03-04)
 
 ### Features
