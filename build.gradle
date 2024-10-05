@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
 	implementation 'se.bjurr.violations:violation-comments-to-gitlab-lib:1.+'
-	implementation 'se.bjurr.violations:violations-lib:1.157.0'
+	implementation 'se.bjurr.violations:violations-lib:1.157.3'
 	implementation 'se.softhouse:jargo:0.4.14'
-	implementation 'org.slf4j:slf4j-simple:2.0.6'
+	implementation 'org.slf4j:slf4j-simple:2.0.16'
 }
