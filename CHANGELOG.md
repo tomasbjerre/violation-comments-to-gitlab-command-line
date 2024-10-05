@@ -1,6 +1,4 @@
-# violation-comments-to-gitlab-command-line changelog
 
-Changelog of violation-comments-to-gitlab-command-line.
 
 ## 1.34.0 (2024-03-24)
 

@@ -8,6 +8,11 @@ Report static code analysis to GitLab. It uses the [Violations Lib](https://gith
 
 ![GitLab Comment](/gitlab-comment.png)
 
+| Version           | Java Version |
+| ------------------| ------------ |
+| version < 1.33.0  | 8            |
+| 1.33.0 <= version | 11           |
+
 The runnable can be found in [NPM](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line).
 
 Run it with:
