@@ -1,3 +1,10 @@
+## 1.35.0 (2024-10-05)
+
+### Features
+
+-  dependencies ([504ca](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/504ca08ea11f9e0) Tomas Bjerre)  
+-  new build script ([9b5e3](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/9b5e37f7bdc38be) Tomas Bjerre)  
+
 
 
 ## 1.34.0 (2024-03-24)
