@@ -11,7 +11,8 @@ Report static code analysis to GitLab. It uses the [Violations Lib](https://gith
 | Version           | Java Version |
 | ------------------| ------------ |
 | version < 1.33.0  | 8            |
-| 1.33.0 <= version | 11           |
+| 1.33.0 - 1.35.1   | 11           |
+| 1.36.0 <= version | 17           |
 
 The runnable can be found in [NPM](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line).
 
