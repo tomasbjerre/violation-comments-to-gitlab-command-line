@@ -1,3 +1,9 @@
+## 1.36.0 (2025-09-28)
+
+### Features
+
+-  PMD CPD 7 ([31c3d](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/31c3d46c459b184) Tomas Bjerre)  
+
 ## 1.35.0 (2024-10-05)
 
 ### Features
