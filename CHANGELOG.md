@@ -1,3 +1,9 @@
+## 1.36.1 (2025-10-05)
+
+### Bug Fixes
+
+-  docfx message_severity ([26da4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/26da4cae5d6e41b) Tomas Bjerre)  
+
 ## 1.36.0 (2025-09-28)
 
 ### Features
