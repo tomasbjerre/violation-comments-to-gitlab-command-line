@@ -104,7 +104,7 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_MyPy_](https://pypi.python.org/pypi/mypy-lang)                                      | `MYPY`               | 
 | [_NullAway_](https://github.com/uber/NullAway)                                        | `GOOGLEERRORPRONE`   | Same format as Google Error Prone.
 | [_PCLint_](http://www.gimpel.com/html/pcl.htm)                                        | `PCLINT`             | PC-Lint using the same output format as the Jenkins warnings plugin, [_details here_](https://wiki.jenkins.io/display/JENKINS/PcLint+options)
-| [_PHPCS_](https://github.com/squizlabs/PHP_CodeSniffer)                               | `CHECKSTYLE`         | With `phpcs api.php --report=checkstyle`.
+| [_PHPCS_](https://github.com/PHPCSStandards/PHP_CodeSniffer)                          | `CHECKSTYLE`         | With `phpcs api.php --report=checkstyle`.
 | [_PHPPMD_](https://phpmd.org/)                                                        | `PMD`                | With `phpmd api.php xml ruleset.xml`.
 | [_PMD_](https://pmd.github.io/)                                                       | `PMD`                | 
 | [_Pep8_](https://github.com/PyCQA/pycodestyle)                                        | `FLAKE8`             | 
@@ -139,84 +139,10 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
 
 # Usage
 
+Run it with `--help` to see all available parameters:
+
 ```shell
--api-token, -at <string>                                <string>: any string [Required]
--api-token-private <boolean>                            <boolean>: true or false
-                                                        Default: true
--comment-only-changed-content, -cocc <boolean>          <boolean>: true or false
-                                                        Default: true
--comment-only-changed-content-context, -coccc <integer> <integer>: 0 to 2,147,483,647
-                                                        Default: 0
--comment-only-changed-files, -cocf <boolean>            True if only changed 
-                                                        files should be commented. 
-                                                        False if all findings should 
-                                                        be commented.
-                                                        <boolean>: true or false
-                                                        Default: true
--comment-template <string>                              https://github.
-                                                        com/tomasbjerre/violation-comments-lib
-                                                        <string>: any string
-                                                        Default: 
--create-comment-with-all-single-file-comments, -        <boolean>: true or false
-ccwasfc <boolean>                                       Default: false
--create-single-file-comments, -csfc <boolean>           <boolean>: true or false
-                                                        Default: true
--gitlab-url, -gu <string>                               <string>: any string
-                                                        Default: https://gitlab.com/
--h, --help <argument-to-print-help-for>                 <argument-to-print-help-for>: an argument to print help for
-                                                        Default: If no specific parameter is given the whole usage text is given
--ignore-certificate-errors <boolean>                    <boolean>: true or false
-                                                        Default: true
--keep-old-comments <boolean>                            <boolean>: true or false
-                                                        Default: false
--max-number-of-comments, -mnoc <integer>                <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 2,147,483,647
--mr-iid <string>                                        Example: 1 [Required]
-                                                        <string>: any string
--project-id, -pi <string>                               Can be the string or 
-                                                        the number. Like 'tomas.
-                                                        bjerre85/violations-test' or '2732496'
-                                                        <string>: any string
-                                                        Default: 
--proxy-password <string>                                <string>: any string
-                                                        Default: 
--proxy-server <string>                                  <string>: any string
-                                                        Default: 
--proxy-user <string>                                    <string>: any string
-                                                        Default: 
--severity, -s <SEVERITY>                                Minimum severity level 
-                                                        to report.
-                                                        <SEVERITY>: {INFO | WARN | ERROR}
-                                                        Default: INFO
--should-set-wip <boolean>                               <boolean>: true or false
-                                                        Default: false
--show-debug-info                                        Please run your 
-                                                        command with this parameter 
-                                                        and supply output when 
-                                                        reporting bugs.
-                                                        Default: disabled
---violations, -v <string>                               The violations to look 
-                                                        for. <PARSER> <FOLDER> 
-                                                        <REGEXP PATTERN> <NAME> where 
-                                                        PARSER is one of: 
-                                                        ANDROIDLINT, CHECKSTYLE, CODENARC, 
-                                                        CLANG, CPD, CPPCHECK, 
-                                                        CPPLINT, CSSLINT, FINDBUGS, 
-                                                        FLAKE8, FXCOP, GENDARME, IAR, 
-                                                        JCREPORT, JSHINT, LINT, 
-                                                        KLOCWORK, KOTLINMAVEN, 
-                                                        KOTLINGRADLE, MSCPP, MYPY, GOLINT, 
-                                                        GOOGLEERRORPRONE, PERLCRITIC, PITEST, 
-                                                        PMD, PYDOCSTYLE, PYLINT, 
-                                                        RESHARPER, SBTSCALAC, SIMIAN, 
-                                                        SONAR, STYLECOP, XMLLINT, 
-                                                        YAMLLINT, ZPTLINT, DOCFX, PCLINT
-                                                        
-                                                         Example: -v "JSHINT" 
-                                                        "." ".*/jshint.xml$" 
-                                                        "JSHint" [Supports Multiple occurrences]
-                                                        <string>: any string
-                                                        Default: Empty list
+npx violation-comments-to-gitlab-command-line --help
 ```
 
 Checkout the [Violations Lib](https://github.com/tomasbjerre/violations-lib) for more documentation.
