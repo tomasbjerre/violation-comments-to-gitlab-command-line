@@ -3,235 +3,187 @@ package se.bjurr.violations.main;
 import static java.lang.Integer.MAX_VALUE;
 import static se.bjurr.violations.comments.gitlab.lib.ViolationCommentsToGitLabApi.violationCommentsToGitLabApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
-import static se.bjurr.violations.lib.model.SEVERITY.INFO;
-import static se.softhouse.jargo.Arguments.booleanArgument;
-import static se.softhouse.jargo.Arguments.enumArgument;
-import static se.softhouse.jargo.Arguments.helpArgument;
-import static se.softhouse.jargo.Arguments.integerArgument;
-import static se.softhouse.jargo.Arguments.optionArgument;
-import static se.softhouse.jargo.Arguments.stringArgument;
-import static se.softhouse.jargo.CommandLineParser.withArguments;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 import org.gitlab4j.api.Constants.TokenType;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
 import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
-import se.softhouse.jargo.Argument;
-import se.softhouse.jargo.ArgumentException;
-import se.softhouse.jargo.ParsedArguments;
 
-public class Runner {
+@Command(name = "violation-comments-to-gitlab-command-line")
+public class Runner implements Runnable {
 
-  private List<List<String>> violations;
-  private boolean commentOnlyChangedContent;
-  private Integer commentOnlyChangedContentContext;
-  private boolean commentOnlyChangedFiles;
-  private boolean createCommentWithAllSingleFileComments;
-  private boolean createSingleFileComments;
-  private String gitLabUrl;
-  private String apiToken;
-  private String projectId;
-  private String mergeRequestIid;
-  private Boolean ignoreCertificateErrors;
-  private Boolean apiTokenPrivate;
-  private SEVERITY minSeverity;
-  private Boolean keepOldComments;
-  private Boolean shouldSetWip;
-  private String commentTemplate;
-  private String proxyServer;
-  private String proxyUser;
-  private String proxyPassword;
-  private Integer maxNumberOfComments;
-  private boolean showDebugInfo;
+  @Option(
+      names = {"--violations", "-v"},
+      parameterConsumer = ViolationsArgConverter.class,
+      description =
+          "The violations to look for. <PARSER> <FOLDER> <REGEXP PATTERN> <NAME> where PARSER is"
+              + " one of the se.bjurr.violations.lib.reports.Parser enum values.\n"
+              + " Example: -v \"JSHINT\" \".\" \".*/jshint.xml$\" \"JSHint\"",
+      arity = "4")
+  List<List<String>> violationsArg = new ArrayList<>();
 
-  public void main(final String args[]) throws Exception {
-    final Argument<?> helpArgument = helpArgument("-h", "--help");
-    final String parsersString =
-        Arrays.asList(Parser.values()).stream()
-            .map((it) -> it.toString())
-            .collect(Collectors.joining(", "));
-    final Argument<List<List<String>>> violationsArg =
-        stringArgument("--violations", "-v")
-            .arity(4)
-            .repeated()
-            .description(
-                "The violations to look for. <PARSER> <FOLDER> <REGEXP PATTERN> <NAME> where PARSER is one of: "
-                    + parsersString
-                    + "\n Example: -v \"JSHINT\" \".\" \".*/jshint.xml$\" \"JSHint\"")
-            .build();
-    final Argument<SEVERITY> minSeverityArg =
-        enumArgument(SEVERITY.class, "-severity", "-s")
-            .defaultValue(INFO)
-            .description("Minimum severity level to report.")
-            .build();
-    final Argument<Boolean> showDebugInfo =
-        optionArgument("-show-debug-info")
-            .description(
-                "Please run your command with this parameter and supply output when reporting bugs.")
-            .build();
+  @Option(
+      names = {"-severity", "-s"},
+      defaultValue = "INFO",
+      description = "Minimum severity level to report. ${COMPLETION-CANDIDATES}")
+  SEVERITY minSeverityArg;
 
-    final Argument<Boolean> commentOnlyChangedContentArg =
-        booleanArgument("-comment-only-changed-content", "-cocc").defaultValue(true).build();
+  @Option(
+      names = "-show-debug-info",
+      description =
+          "Please run your command with this parameter and supply output when" + " reporting bugs.")
+  boolean showDebugInfoArg; // NOPMD only used within run(), kept as a field for readability
 
-    final Argument<Integer> commentOnlyChangedContentContextArg =
-        integerArgument("-comment-only-changed-content-context", "-coccc").defaultValue(0).build();
+  @Option(
+      names = {"-comment-only-changed-content", "-cocc"},
+      arity = "1",
+      defaultValue = "true")
+  boolean commentOnlyChangedContentArg;
 
-    final Argument<Boolean> shouldCommentOnlyChangedFilesArg =
-        booleanArgument("-comment-only-changed-files", "-cocf")
-            .defaultValue(true)
-            .description(
-                "True if only changed files should be commented. False if all findings should be commented.")
-            .build();
-    final Argument<Boolean> createCommentWithAllSingleFileCommentsArg =
-        booleanArgument("-create-comment-with-all-single-file-comments", "-ccwasfc")
-            .defaultValue(false)
-            .build();
-    final Argument<Boolean> createSingleFileCommentsArg =
-        booleanArgument("-create-single-file-comments", "-csfc").defaultValue(true).build();
-    final Argument<String> gitLabUrlArg =
-        stringArgument("-gitlab-url", "-gu").defaultValue("https://gitlab.com/").build();
-    final Argument<String> apiTokenArg = stringArgument("-api-token", "-at").required().build();
-    final Argument<String> projectIdArg =
-        stringArgument("-project-id", "-pi")
-            .description(
-                "Can be the string or the number. Like 'tomas.bjerre85/violations-test' or '2732496'")
-            .build();
-    final Argument<String> mergeRequestIidArg =
-        stringArgument("-mr-iid")
-            .description("Merge Request IID")
-            .description("Example: 1")
-            .required()
-            .build();
-    final Argument<Boolean> ignoreCertificateErrorsArg =
-        booleanArgument("-ignore-certificate-errors").defaultValue(true).build();
-    final Argument<Boolean> apiTokenPrivateArg =
-        booleanArgument("-api-token-private").defaultValue(true).build();
-    final Argument<Boolean> keepOldCommentsArg =
-        booleanArgument("-keep-old-comments").defaultValue(false).build();
-    final Argument<Boolean> shouldSetWipArg =
-        booleanArgument("-should-set-wip").defaultValue(false).build();
-    final Argument<String> commentTemplateArg =
-        stringArgument("-comment-template")
-            .defaultValue("")
-            .description("https://github.com/tomasbjerre/violation-comments-lib")
-            .build();
-    final Argument<String> proxyServerArg =
-        stringArgument("-proxy-server").defaultValue("").build();
-    final Argument<String> proxyUserArg = stringArgument("-proxy-user").defaultValue("").build();
-    final Argument<String> proxyPasswordArg =
-        stringArgument("-proxy-password").defaultValue("").build();
-    final Argument<Integer> maxNumberOfCommentsArg =
-        integerArgument("-max-number-of-comments", "-mnoc").defaultValue(MAX_VALUE).build();
+  @Option(
+      names = {"-comment-only-changed-content-context", "-coccc"},
+      defaultValue = "0")
+  Integer commentOnlyChangedContentContextArg;
 
-    try {
-      final ParsedArguments parsed =
-          withArguments( //
-                  helpArgument, //
-                  violationsArg, //
-                  minSeverityArg, //
-                  showDebugInfo, //
-                  commentOnlyChangedContentArg, //
-                  commentOnlyChangedContentContextArg, //
-                  shouldCommentOnlyChangedFilesArg, //
-                  createCommentWithAllSingleFileCommentsArg, //
-                  createSingleFileCommentsArg, //
-                  gitLabUrlArg, //
-                  apiTokenArg, //
-                  projectIdArg, //
-                  mergeRequestIidArg, //
-                  ignoreCertificateErrorsArg, //
-                  apiTokenPrivateArg, //
-                  keepOldCommentsArg, //
-                  shouldSetWipArg, //
-                  commentTemplateArg, //
-                  proxyServerArg, //
-                  proxyUserArg, //
-                  proxyPasswordArg, //
-                  maxNumberOfCommentsArg) //
-              .parse(args);
+  @Option(
+      names = {"-comment-only-changed-files", "-cocf"},
+      arity = "1",
+      defaultValue = "true",
+      description =
+          "True if only changed files should be commented. False if all findings should be"
+              + " commented.")
+  boolean commentOnlyChangedFilesArg;
 
-      this.violations = parsed.get(violationsArg);
-      this.minSeverity = parsed.get(minSeverityArg);
-      this.commentOnlyChangedContent = parsed.get(commentOnlyChangedContentArg);
-      this.commentOnlyChangedContentContext = parsed.get(commentOnlyChangedContentContextArg);
-      this.commentOnlyChangedFiles = parsed.get(shouldCommentOnlyChangedFilesArg);
-      this.createCommentWithAllSingleFileComments =
-          parsed.get(createCommentWithAllSingleFileCommentsArg);
-      this.createSingleFileComments = parsed.get(createSingleFileCommentsArg);
-      this.gitLabUrl = parsed.get(gitLabUrlArg);
-      this.apiToken = parsed.get(apiTokenArg);
-      this.projectId = parsed.get(projectIdArg);
-      this.mergeRequestIid = parsed.get(mergeRequestIidArg);
-      this.ignoreCertificateErrors = parsed.get(ignoreCertificateErrorsArg);
-      this.apiTokenPrivate = parsed.get(apiTokenPrivateArg);
-      this.keepOldComments = parsed.get(keepOldCommentsArg);
-      this.shouldSetWip = parsed.get(shouldSetWipArg);
-      this.commentTemplate = parsed.get(commentTemplateArg);
-      this.proxyServer = parsed.get(proxyServerArg);
-      this.proxyUser = parsed.get(proxyUserArg);
-      this.proxyPassword = parsed.get(proxyPasswordArg);
-      this.maxNumberOfComments = parsed.get(maxNumberOfCommentsArg);
-      this.showDebugInfo = parsed.wasGiven(showDebugInfo);
-      if (this.showDebugInfo) {
-        System.out.println(
-            "Given parameters:\n"
-                + Arrays.asList(args).stream()
-                    .map((it) -> it.toString())
-                    .collect(Collectors.joining(", "))
-                + "\n\nParsed parameters:\n"
-                + this.toString());
-      }
+  @Option(
+      names = {"-create-comment-with-all-single-file-comments", "-ccwasfc"},
+      arity = "1",
+      defaultValue = "false")
+  boolean createCommentWithAllSingleFileCommentsArg;
 
-    } catch (final ArgumentException exception) {
-      System.out.println(exception.getMessageAndUsage());
-      System.exit(1);
+  @Option(
+      names = {"-create-single-file-comments", "-csfc"},
+      arity = "1",
+      defaultValue = "true")
+  boolean createSingleFileCommentsArg;
+
+  @Option(
+      names = {"-gitlab-url", "-gu"},
+      defaultValue = "https://gitlab.com/")
+  String gitLabUrlArg;
+
+  @Option(
+      names = {"-api-token", "-at"},
+      required = true)
+  String apiTokenArg;
+
+  @Option(
+      names = {"-project-id", "-pi"},
+      description =
+          "Can be the string or the number. Like 'tomas.bjerre85/violations-test' or '2732496'")
+  String projectIdArg;
+
+  @Option(
+      names = "-mr-iid",
+      required = true,
+      description = {"Merge Request IID", "Example: 1"})
+  String mergeRequestIidArg;
+
+  @Option(names = "-ignore-certificate-errors", arity = "1", defaultValue = "true")
+  boolean ignoreCertificateErrorsArg;
+
+  @Option(names = "-api-token-private", arity = "1", defaultValue = "true")
+  boolean apiTokenPrivateArg;
+
+  @Option(names = "-keep-old-comments", arity = "1", defaultValue = "false")
+  boolean keepOldCommentsArg;
+
+  @Option(names = "-should-set-wip", arity = "1", defaultValue = "false")
+  boolean shouldSetWipArg;
+
+  @Option(
+      names = "-comment-template",
+      defaultValue = "",
+      description = "https://github.com/tomasbjerre/violation-comments-lib")
+  String commentTemplateArg;
+
+  @Option(names = "-proxy-server", defaultValue = "")
+  String proxyServerArg;
+
+  @Option(names = "-proxy-user", defaultValue = "")
+  String proxyUserArg;
+
+  @Option(names = "-proxy-password", defaultValue = "")
+  String proxyPasswordArg;
+
+  @Option(
+      names = {"-max-number-of-comments", "-mnoc"},
+      defaultValue = MAX_VALUE + "")
+  Integer maxNumberOfCommentsArg;
+
+  @Option(names = "--help", usageHelp = true, description = "display this help and exit")
+  boolean helpArg; // NOPMD picocli-managed, only used by the framework
+
+  @Override
+  public void run() {
+    if (this.showDebugInfoArg) {
+      System.out.println( // NOPMD stdout is the CLI output
+          "Parsed parameters:\n" + this.toString());
     }
 
     ViolationsLogger violationsLogger =
         new ViolationsLogger() {
           @Override
           public void log(final Level level, final String string) {
-            System.out.println(level + " " + string);
+            System.out.println(level + " " + string); // NOPMD stdout is the CLI output
           }
 
           @Override
+          @SuppressFBWarnings(
+              value = "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE",
+              justification =
+                  "This is a command line tool, the stack trace is meant to be seen by the user"
+                      + " running it, not exposed to a remote party.")
           public void log(final Level level, final String string, final Throwable t) {
             final StringWriter sw = new StringWriter();
-            t.printStackTrace(new PrintWriter(sw));
-            System.out.println(level + " " + string + "\n" + sw.toString());
+            t.printStackTrace(
+                new PrintWriter(sw)); // NOPMD writes to an in-memory buffer, not System.err
+            System.out.println( // NOPMD stdout is the CLI output
+                level + " " + string + "\n" + sw.toString());
           }
         };
-    if (!this.showDebugInfo) {
+    if (!this.showDebugInfoArg) {
       violationsLogger = FilteringViolationsLogger.filterLevel(violationsLogger);
     }
 
-    if (this.mergeRequestIid == null || this.mergeRequestIid.isEmpty()) {
-      System.out.println(
+    if (this.mergeRequestIidArg == null || this.mergeRequestIidArg.isEmpty()) {
+      System.out.println( // NOPMD stdout is the CLI output
           "No merge request iid defined, will not send violation comments to GitLab.");
       return;
     }
 
-    System.out.println(
+    System.out.println( // NOPMD stdout is the CLI output
         "Will comment project "
-            + this.projectId
+            + this.projectIdArg
             + " and MR "
-            + this.mergeRequestIid
+            + this.mergeRequestIidArg
             + " on "
-            + this.gitLabUrl);
+            + this.gitLabUrlArg);
 
     Set<Violation> allParsedViolations = new TreeSet<>();
-    for (final List<String> configuredViolation : this.violations) {
+    for (final List<String> configuredViolation : this.violationsArg) {
       final String reporter = configuredViolation.size() >= 4 ? configuredViolation.get(3) : null;
 
       final Set<Violation> parsedViolations =
@@ -242,83 +194,86 @@ public class Runner {
               .withPattern(configuredViolation.get(2)) //
               .withReporter(reporter) //
               .violations();
-      if (this.minSeverity != null) {
-        allParsedViolations = Filtering.withAtLEastSeverity(allParsedViolations, this.minSeverity);
+      if (this.minSeverityArg != null) {
+        allParsedViolations =
+            Filtering.withAtLEastSeverity(allParsedViolations, this.minSeverityArg);
       }
       allParsedViolations.addAll(parsedViolations);
     }
 
     try {
-      final TokenType tokenType = this.apiTokenPrivate ? TokenType.PRIVATE : TokenType.ACCESS;
-      final Long mergeRequestIidInteger = Long.parseLong(this.mergeRequestIid);
+      final TokenType tokenType = this.apiTokenPrivateArg ? TokenType.PRIVATE : TokenType.ACCESS;
+      final Long mergeRequestIidInteger = Long.parseLong(this.mergeRequestIidArg);
       violationCommentsToGitLabApi()
-          .setHostUrl(this.gitLabUrl)
-          .setProjectId(this.projectId)
+          .setHostUrl(this.gitLabUrlArg)
+          .setProjectId(this.projectIdArg)
           .setMergeRequestIid(mergeRequestIidInteger)
-          .setApiToken(this.apiToken)
+          .setApiToken(this.apiTokenArg)
           .setTokenType(tokenType)
-          .setCommentOnlyChangedContent(this.commentOnlyChangedContent) //
-          .setCommentOnlyChangedContentContext(this.commentOnlyChangedContentContext) //
-          .withShouldCommentOnlyChangedFiles(this.commentOnlyChangedFiles) //
+          .setCommentOnlyChangedContent(this.commentOnlyChangedContentArg) //
+          .setCommentOnlyChangedContentContext(this.commentOnlyChangedContentContextArg) //
+          .withShouldCommentOnlyChangedFiles(this.commentOnlyChangedFilesArg) //
           .setCreateCommentWithAllSingleFileComments(
-              this.createCommentWithAllSingleFileComments) //
-          .setCreateSingleFileComments(this.createSingleFileComments) //
-          .setIgnoreCertificateErrors(this.ignoreCertificateErrors) //
+              this.createCommentWithAllSingleFileCommentsArg) //
+          .setCreateSingleFileComments(this.createSingleFileCommentsArg) //
+          .setIgnoreCertificateErrors(this.ignoreCertificateErrorsArg) //
           .setViolations(allParsedViolations) //
-          .setShouldKeepOldComments(this.keepOldComments) //
-          .setShouldSetWIP(this.shouldSetWip) //
-          .setCommentTemplate(this.commentTemplate) //
-          .setProxyServer(this.proxyServer) //
-          .setProxyUser(this.proxyUser) //
-          .setProxyPassword(this.proxyPassword) //
-          .setMaxNumberOfViolations(this.maxNumberOfComments) //
+          .setShouldKeepOldComments(this.keepOldCommentsArg) //
+          .setShouldSetWIP(this.shouldSetWipArg) //
+          .setCommentTemplate(this.commentTemplateArg) //
+          .setProxyServer(this.proxyServerArg) //
+          .setProxyUser(this.proxyUserArg) //
+          .setProxyPassword(this.proxyPasswordArg) //
+          .setMaxNumberOfViolations(this.maxNumberOfCommentsArg) //
           .setViolationsLogger(violationsLogger) //
           .toPullRequest();
     } catch (final Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD top-level CLI error handler
     }
   }
 
   @Override
   public String toString() {
     return "Runner [violations="
-        + this.violations
+        + this.violationsArg
         + ", commentOnlyChangedContent="
-        + this.commentOnlyChangedContent
+        + this.commentOnlyChangedContentArg
         + ", commentOnlyChangedContentContext="
-        + this.commentOnlyChangedContentContext
+        + this.commentOnlyChangedContentContextArg
+        + ", commentOnlyChangedFiles="
+        + this.commentOnlyChangedFilesArg
         + ", createCommentWithAllSingleFileComments="
-        + this.createCommentWithAllSingleFileComments
+        + this.createCommentWithAllSingleFileCommentsArg
         + ", createSingleFileComments="
-        + this.createSingleFileComments
+        + this.createSingleFileCommentsArg
         + ", gitLabUrl="
-        + this.gitLabUrl
+        + this.gitLabUrlArg
         + ", apiToken="
-        + this.apiToken
+        + this.apiTokenArg
         + ", projectId="
-        + this.projectId
+        + this.projectIdArg
         + ", mergeRequestIid="
-        + this.mergeRequestIid
+        + this.mergeRequestIidArg
         + ", ignoreCertificateErrors="
-        + this.ignoreCertificateErrors
+        + this.ignoreCertificateErrorsArg
         + ", apiTokenPrivate="
-        + this.apiTokenPrivate
+        + this.apiTokenPrivateArg
         + ", minSeverity="
-        + this.minSeverity
+        + this.minSeverityArg
         + ", keepOldComments="
-        + this.keepOldComments
+        + this.keepOldCommentsArg
         + ", shouldSetWip="
-        + this.shouldSetWip
+        + this.shouldSetWipArg
         + ", commentTemplate="
-        + this.commentTemplate
+        + this.commentTemplateArg
         + ", proxyServer="
-        + this.proxyServer
+        + this.proxyServerArg
         + ", proxyUser="
-        + this.proxyUser
+        + this.proxyUserArg
         + ", proxyPassword="
-        + this.proxyPassword
+        + this.proxyPasswordArg
         + ", maxNumberOfComments="
-        + this.maxNumberOfComments
+        + this.maxNumberOfCommentsArg
         + "]";
   }
 }
