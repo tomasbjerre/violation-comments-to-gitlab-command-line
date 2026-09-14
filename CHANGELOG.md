@@ -1,3 +1,38 @@
+## 1.36.2 (2026-09-14)
+
+### Bug Fixes
+
+-  **deps**  update violation-comments-to-gitlab-lib to 1.90.2 ([31d16](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/31d16b43a82e0c1) Tomas Bjerre)  
+
+### Dependency updates
+
+- gradle-conventions ([b2384](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/b2384c6576a966f) Tomas Bjerre)  
+- update violations-lib to 2.1.0 ([36b52](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/36b52ab91625735) Tomas Bjerre)  
+- update gradle-conventions plugin to 2.2.0 ([59bfc](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/59bfcb6779b49b1) Tomas Bjerre)  
+- update dependencies, gradle-conventions to 2.1.2, Gradle to 9.7.1 ([f3685](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/f3685b8d667033d) Tomas Bjerre)  
+- gradle 9 ([886da](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/886da8f27537bd4) Tomas Bjerre)  
+### Other changes
+
+**Use shared reusable release workflow**
+
+* Replace the repo-local release.yaml body with a call to 
+* tomasbjerre/.github&#x27;s gradle-npm-maven-docker-release.yaml reusable 
+* workflow, so the release steps are maintained in one place. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_017K9KgD31eJFz7wu9b2C7XE 
+
+[1fea4](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/1fea4eaf11d8875) Tomas Bjerre *2026-09-14 11:25:54*
+
+**Fix broken Maven Central badge in README**
+
+* maven-badges.herokuapp.com is down; switch to img.shields.io badge 
+* linking to search.maven.org. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_011PGVf85V1VhJj4oM3rKh7b 
+
+[33289](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/332893f34ce072d) Tomas Bjerre *2026-09-13 08:52:01*
+
+
 ## 1.36.1 (2025-10-05)
 
 ### Bug Fixes
