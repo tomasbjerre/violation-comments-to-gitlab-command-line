@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
-import org.gitlab4j.api.Constants.TokenType;
+import org.gitlab4j.models.Constants.TokenType;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
