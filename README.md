@@ -1,7 +1,7 @@
 # Violation Comments To GitLab Command Line
 
-[![NPM](https://img.shields.io/npm/v/violation-comments-to-gitlab-command-line.svg?style=flat-square) ](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line)
-[![Maven Central](https://img.shields.io/maven-central/v/se.bjurr.violations/violation-comments-to-gitlab-command-line.svg?label=Maven%20Central)](https://search.maven.org/artifact/se.bjurr.violations/violation-comments-to-gitlab-command-line)
+[![NPM](https://img.shields.io/npm/v/violation-comments-to-gitlab-command-line.svg?style=flat-square)](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line)
+[![Maven Central](https://img.shields.io/maven-central/v/se.bjurr.violations/violation-comments-to-gitlab-command-line.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/se.bjurr.violations/violation-comments-to-gitlab-command-line)
 [![Docker Pulls](https://badgen.net/docker/pulls/tomasbjerre/violation-comments-to-gitlab-command-line?icon=docker&label=pulls)](https://hub.docker.com/r/tomasbjerre/violation-comments-to-gitlab-command-line/)
 
 Report static code analysis to GitLab. It uses the [Violations Lib](https://github.com/tomasbjerre/violations-lib).
