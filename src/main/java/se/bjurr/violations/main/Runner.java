@@ -44,7 +44,9 @@ public class Runner implements Runnable {
   @Option(
       names = "-show-debug-info",
       description =
-          "Please run your command with this parameter and supply output when" + " reporting bugs.")
+          "Also logs every GitLab API request and response, headers included. Off by default,"
+              + " since it's noisy. Please run your command with this parameter and supply output"
+              + " when reporting bugs.")
   boolean showDebugInfoArg; // NOPMD only used within run(), kept as a field for readability
 
   @Option(
@@ -221,6 +223,7 @@ public class Runner implements Runnable {
           .setShouldKeepOldComments(this.keepOldCommentsArg) //
           .setShouldSetWIP(this.shouldSetWipArg) //
           .setCommentTemplate(this.commentTemplateArg) //
+          .setLogRequestResponse(this.showDebugInfoArg) //
           .setProxyServer(this.proxyServerArg) //
           .setProxyUser(this.proxyUserArg) //
           .setProxyPassword(this.proxyPasswordArg) //
