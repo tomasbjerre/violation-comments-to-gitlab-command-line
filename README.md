@@ -16,6 +16,12 @@ Report static code analysis to GitLab. It uses the [Violations Lib](https://gith
 
 The runnable can be found in [NPM](https://www.npmjs.com/package/violation-comments-to-gitlab-command-line).
 
+To build from source, ensure you have Java 17. Then compile it with:
+
+```shell
+./gradlew build
+```
+
 Run it with:
 
 ```shell
