@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-	implementation 'se.bjurr.violations:violation-comments-to-gitlab-lib:1.91.1'
+	implementation 'se.bjurr.violations:violation-comments-to-gitlab-lib:1.92.0'
 	implementation "se.bjurr.violations:violations-lib:2.2.0"
 	implementation 'info.picocli:picocli:4.7.7'
 	implementation "org.slf4j:slf4j-simple:2.0.19"
