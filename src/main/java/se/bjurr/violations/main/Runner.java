@@ -112,6 +112,17 @@ public class Runner implements Runnable {
   @Option(names = "-keep-old-comments", arity = "1", defaultValue = "false")
   boolean keepOldCommentsArg;
 
+  @Option(
+      names = "-create-comments-as-resolvable-threads",
+      arity = "1",
+      defaultValue = "false",
+      description =
+          "True if the general comment should be posted as a resolvable discussion thread,"
+              + " rather than a plain note. GitLab has no separate \"task\" concept, but a"
+              + " discussion thread can be marked resolved, the same as a diff comment's thread"
+              + " already is.")
+  boolean createCommentsAsResolvableThreadsArg;
+
   @Option(names = "-should-set-wip", arity = "1", defaultValue = "false")
   boolean shouldSetWipArg;
 
@@ -221,6 +232,7 @@ public class Runner implements Runnable {
           .setIgnoreCertificateErrors(this.ignoreCertificateErrorsArg) //
           .setViolations(allParsedViolations) //
           .setShouldKeepOldComments(this.keepOldCommentsArg) //
+          .withCreateCommentsAsResolvableThreads(this.createCommentsAsResolvableThreadsArg) //
           .setShouldSetWIP(this.shouldSetWipArg) //
           .setCommentTemplate(this.commentTemplateArg) //
           .setLogRequestResponse(this.showDebugInfoArg) //
@@ -265,6 +277,8 @@ public class Runner implements Runnable {
         + this.minSeverityArg
         + ", keepOldComments="
         + this.keepOldCommentsArg
+        + ", createCommentsAsResolvableThreads="
+        + this.createCommentsAsResolvableThreadsArg
         + ", shouldSetWip="
         + this.shouldSetWipArg
         + ", commentTemplate="
