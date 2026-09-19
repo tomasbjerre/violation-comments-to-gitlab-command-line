@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
-import org.gitlab4j.models.Constants.TokenType;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
+import se.bjurr.violations.comments.gitlab.lib.TokenType;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
 import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
@@ -122,6 +122,16 @@ public class Runner implements Runnable {
               + " discussion thread can be marked resolved, the same as a diff comment's thread"
               + " already is.")
   boolean createCommentsAsResolvableThreadsArg;
+
+  @Option(
+      names = {"-use-draft-notes", "-udn"},
+      arity = "1",
+      defaultValue = "false",
+      description =
+          "True if single file comments should be created as GitLab Draft Notes and published"
+              + " together as a single review, instead of each becoming its own"
+              + " immediately-visible discussion.")
+  boolean useDraftNotesArg;
 
   @Option(names = "-should-set-wip", arity = "1", defaultValue = "false")
   boolean shouldSetWipArg;
@@ -233,6 +243,7 @@ public class Runner implements Runnable {
           .setViolations(allParsedViolations) //
           .setShouldKeepOldComments(this.keepOldCommentsArg) //
           .withCreateCommentsAsResolvableThreads(this.createCommentsAsResolvableThreadsArg) //
+          .withUseDraftNotes(this.useDraftNotesArg) //
           .setShouldSetWIP(this.shouldSetWipArg) //
           .setCommentTemplate(this.commentTemplateArg) //
           .setLogRequestResponse(this.showDebugInfoArg) //
@@ -279,6 +290,8 @@ public class Runner implements Runnable {
         + this.keepOldCommentsArg
         + ", createCommentsAsResolvableThreads="
         + this.createCommentsAsResolvableThreadsArg
+        + ", useDraftNotes="
+        + this.useDraftNotesArg
         + ", shouldSetWip="
         + this.shouldSetWipArg
         + ", commentTemplate="
