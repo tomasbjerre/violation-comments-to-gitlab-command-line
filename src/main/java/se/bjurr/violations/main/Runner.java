@@ -47,7 +47,7 @@ public class Runner implements Runnable {
           "Also logs every GitLab API request and response, headers included. Off by default,"
               + " since it's noisy. Please run your command with this parameter and supply output"
               + " when reporting bugs.")
-  boolean showDebugInfoArg; // NOPMD only used within run(), kept as a field for readability
+  boolean showDebugInfoArg; // only used within run(), kept as a field for readability
 
   @Option(
       names = {"-comment-only-changed-content", "-cocc"},
@@ -157,7 +157,7 @@ public class Runner implements Runnable {
   Integer maxNumberOfCommentsArg;
 
   @Option(names = "--help", usageHelp = true, description = "display this help and exit")
-  boolean helpArg; // NOPMD picocli-managed, only used by the framework
+  boolean helpArg; // picocli-managed, only used by the framework
 
   @Override
   public void run() {
@@ -181,8 +181,7 @@ public class Runner implements Runnable {
                       + " running it, not exposed to a remote party.")
           public void log(final Level level, final String string, final Throwable t) {
             final StringWriter sw = new StringWriter();
-            t.printStackTrace(
-                new PrintWriter(sw)); // NOPMD writes to an in-memory buffer, not System.err
+            t.printStackTrace(new PrintWriter(sw)); // writes to an in-memory buffer, not System.err
             System.out.println( // NOPMD stdout is the CLI output
                 level + " " + string + "\n" + sw.toString());
           }
@@ -253,7 +252,7 @@ public class Runner implements Runnable {
           .setMaxNumberOfViolations(this.maxNumberOfCommentsArg) //
           .setViolationsLogger(violationsLogger) //
           .toPullRequest();
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD top-level CLI error handler
       e.printStackTrace(); // NOPMD top-level CLI error handler
     }
   }
