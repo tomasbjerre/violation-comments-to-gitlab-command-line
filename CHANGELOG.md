@@ -1,3 +1,15 @@
+## 1.37.1 (2026-10-03)
+
+### Bug Fixes
+
+-  remove literal quotes from gradle.properties description ([50f31](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/50f3151f3883847) Tomas Bjerre)  
+
+### Dependency updates
+
+- update plugin se.bjurr.gradle.bundle-command-shadow to v2.4.4 (#31) ([caeb3](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/caeb3ce7689f3e4) renovate[bot])  
+- update dependency se.bjurr.violations:violations-lib to v3.0.2 (#30) ([79287](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/7928774a095d8d5) renovate[bot])  
+- update plugin se.bjurr.gradle.bundle-command-shadow to v2.4.3 (#29) ([63b8f](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/63b8fe5820df5c3) renovate[bot])  
+- update plugin se.bjurr.gradle.bundle-command-shadow to v2.4.1 (#28) ([b79c1](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/b79c1c8f7c8e87b) renovate[bot])  
 ## 1.36.2 (2026-09-14)
 
 ### Bug Fixes
