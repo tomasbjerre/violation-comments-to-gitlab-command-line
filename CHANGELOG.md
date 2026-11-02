@@ -1,3 +1,11 @@
+## 1.37.2 (2026-10-28)
+
+### Dependency updates
+
+- update dependency se.bjurr.violations:violations-lib to v3.0.3 (#36) ([b0176](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/b0176eae250c438) renovate[bot])  
+- update dependency gradle to v9.8.2 (#35) ([0a228](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/0a2283eb73c857c) renovate[bot])  
+- update dependency gradle to v9.8.1 (#34) ([9cabc](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/9cabc1ea9293901) renovate[bot])  
+- update dependency se.bjurr.violations:violation-comments-to-gitlab-lib to v2.0.2 (#32) ([d894f](https://github.com/tomasbjerre/violation-comments-to-gitlab-command-line/commit/d894f7edab2f0fa) renovate[bot])  
 ## 1.37.1 (2026-10-03)
 
 ### Bug Fixes
